@@ -28,9 +28,7 @@ int main()
                 for (int j = 0; j < 9; j++)
                 {
                     if (i % 2 == 0)
-                    {
                         x = j * 114+ 57;
-                    }
                     else
                     {
                         x = j * 114;
