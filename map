@@ -28,13 +28,9 @@ int main()
                 for (int j = 0; j < 9; j++)
                 {
                     if (i % 2 == 0)
-                    {
                         x = j * 114+ 57;
-                    }
                     else
-                    {
                         x = j * 114;
-                    }
                    // x = j * 114;
                     Crc1.setPosition(x, y  + 10);
                     window.draw(Crc1);
