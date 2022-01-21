@@ -34,7 +34,7 @@ int main()
             {
                 map[i][j] = rand() % 100;
             }
-        }
+        }//что это?
 
         while (window.isOpen())
         {
@@ -60,7 +60,7 @@ int main()
                     y = (map[i][j] / 10) * 98;
                     Crc1.setPosition(x, y);
                     Crc2.setPosition(x + 40, y + 40);
-                    Crc3.setPosition(x + 40, y + 40);
+                    Crc3.setPosition(x + 40, y + 40);//уверен что здесь правильно ? 
                     window.draw(Crc1);
                     window.draw(Crc2);
                     window.draw(Crc3);
