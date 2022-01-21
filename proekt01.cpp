@@ -12,7 +12,7 @@ int main()
 
     int x = 0, y = 0, k = 0;
     int map[10][10];
-    int eda[10][10];
+    int eda[10][10];//зачем это? 
 
         Crc1.setRadius(60);                                                    ///  радиус
         Crc1.setPointCount(6);                                                 ///  граница
