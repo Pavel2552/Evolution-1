@@ -1,0 +1,11 @@
+﻿  Map.cpp
+c:\users\user\source\repos\proekt01\proekt01\map.cpp(8): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\user\source\repos\proekt01\proekt01\map.cpp(10): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\user\source\repos\proekt01\proekt01\map.cpp(16): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\user\source\repos\proekt01\proekt01\map.cpp(21): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\user\source\repos\proekt01\proekt01\map.cpp(27): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+c:\users\user\source\repos\proekt01\proekt01\map.cpp(28): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\user\source\repos\proekt01\proekt01\map.cpp(29): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\user\source\repos\proekt01\proekt01\map.cpp(46): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\user\source\repos\proekt01\proekt01\map.cpp(48): warning C4018: <: несоответствие типов со знаком и без знака
+  proekt01.vcxproj -> C:\Users\User\source\repos\proekt01\Debug\proekt01.exe
