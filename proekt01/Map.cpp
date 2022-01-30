@@ -15,13 +15,13 @@ Map::Map() :
 
 	for (int i = 0; i < mField.size(); ++i)
 	{
-		mField[i][0] = new Object(Object::ObjectType::WALL);        // ëåâî
-		mField[i][31] = new Object(Object::ObjectType::WALL);       // ïğàâî
+		mField[i][0] = new Object(Object::ObjectType::WALL);        // Ğ»ĞµĞ²Ğ¾
+		mField[i][31] = new Object(Object::ObjectType::WALL);       // Ğ¿Ñ€Ğ°Ğ²Ğ¾
 	}
 	for (int j = 0; j < mField[0].size(); ++j)
 	{
-		mField[0][j] = new Object(Object::ObjectType::WALL);        //íèç
-		mField[1][j] = new Object(Object::ObjectType::WALL);        //âåğõ
+		mField[0][j] = new Object(Object::ObjectType::WALL);        //Ğ½Ğ¸Ğ·
+		mField[1][j] = new Object(Object::ObjectType::WALL);        //Ğ²ĞµÑ€Ñ…
 	}
 		
 	srand(time(NULL));
@@ -29,9 +29,25 @@ Map::Map() :
 		for (int j = 1; j < mField[0].size()-1; ++j)
 		{
 			
-			if (rand() % 20 == 5)
+			if (rand() % 5 == 1)  
 			{
 				mField[i][j] = new Object(Object::ObjectType::FOOD);
+			}
+			if (rand() % 30 == 1)
+			{
+				mField[i][j] = new Object(Object::ObjectType::POISON);
+			}
+		}
+	}
+
+	srand(time(NULL)+200);
+	for (int i = 2; i < mField.size(); i++) {
+		for (int j = 1; j < mField[0].size() - 1; ++j)
+		{
+
+			if (rand() % 50 == 1)
+			{
+				mField[i][j] = new Object(Object::ObjectType::BOT);
 			}
 		}
 	}
@@ -55,5 +71,4 @@ std::vector<std::vector<Object::ObjectType>> Map::getPresentation()
 }
 
 Map::~Map() {};
-
 
