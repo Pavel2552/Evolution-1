@@ -1,0 +1,14 @@
+﻿  Map.cpp
+U:\1pavel\sas 2\sas\sas\Map.cpp(14,20): warning C4018: <: несоответствие типов со знаком и без знака
+U:\1pavel\sas 2\sas\sas\Map.cpp(16,21): warning C4018: <: несоответствие типов со знаком и без знака
+U:\1pavel\sas 2\sas\sas\Map.cpp(22,20): warning C4018: <: несоответствие типов со знаком и без знака
+U:\1pavel\sas 2\sas\sas\Map.cpp(27,20): warning C4018: <: несоответствие типов со знаком и без знака
+U:\1pavel\sas 2\sas\sas\Map.cpp(50,19): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+U:\1pavel\sas 2\sas\sas\Map.cpp(79,20): warning C4018: <: несоответствие типов со знаком и без знака
+U:\1pavel\sas 2\sas\sas\Map.cpp(81,21): warning C4018: <: несоответствие типов со знаком и без знака
+U:\1pavel\sas 2\sas\sas\Map.cpp(104,20): warning C4018: <: несоответствие типов со знаком и без знака
+U:\1pavel\sas 2\sas\sas\Map.cpp(106,21): warning C4018: <: несоответствие типов со знаком и без знака
+U:\1pavel\sas 2\sas\sas\Map.cpp(209,20): warning C4018: <: несоответствие типов со знаком и без знака
+U:\1pavel\sas 2\sas\sas\Map.cpp(211,21): warning C4018: <: несоответствие типов со знаком и без знака
+U:\1pavel\sas 2\sas\sas\Map.cpp(226,25): warning C4018: >: несоответствие типов со знаком и без знака
+  sas.vcxproj -> U:\1pavel\sas 2\sas\Debug\sas.exe
