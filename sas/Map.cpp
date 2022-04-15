@@ -1,15 +1,17 @@
 #include "Map.h"
 
-const int bot    = 16;
-const int food   = 150;
-const int poison = 75;
-const int wall   = 50;
+const int BOT_DOWN_LIMIT = 8;
+const int BOT_MULTIPLY_COUNT = 7;
+
+const int bot     = 64;
+const int food   = 450;
+const int poison = 175;
+const int wall   = 150;
 
 
 Map::Map(int x_world_size, int y_world_size) :
-	mField(x_world_size, std::vector<Object*>(y_world_size, NULL))    //19 32
+	mField(x_world_size, std::vector<Object*>(y_world_size, NULL))    //29 52
 {
-
 
 	for (int i = 0; i < mField.size(); ++i)
 	{
@@ -22,30 +24,13 @@ Map::Map(int x_world_size, int y_world_size) :
 	for (int i = 0; i < mField.size(); ++i)
 	{
 		mField[i][0] = new Object(Object::ObjectType::WALL);        // лево
-		mField[i][31] = new Object(Object::ObjectType::WALL);       // право
+		mField[i][51] = new Object(Object::ObjectType::WALL);       // право
 	}
 	for (int j = 0; j < mField[0].size(); ++j)
 	{
 		mField[0][j] = new Object(Object::ObjectType::WALL);        // низ
-		mField[18][j] = new Object(Object::ObjectType::WALL);       // верх
+		mField[28][j] = new Object(Object::ObjectType::WALL);       // верх
 	}
-
-
-	/*srand(time(NULL));
-	for (int i = 1; i < mField.size() - 1; i++) {
-		for (int j = 1; j < mField[0].size() - 1; ++j)
-		{
-			
-			if (rand() % 5 == 1)
-			{
-				mField[i][j] = new Object(Object::ObjectType::FOOD);
-			}
-			if (rand() % 30 == 1)
-			{
-				mField[i][j] = new Object(Object::ObjectType::POISON);
-			}
-		}
-	}*/
 
 	srand(time(NULL) + 200);
 	regenerate();
@@ -66,8 +51,8 @@ Pair<int> Map::findVoid()
 	Pair<int> result;
 	do
 	{
-		result = Pair<int>
-			(rand() % mField.size(), rand() % mField[0].size());
+		result = Pair<int> (  rand() % mField.size(),  rand() % mField[0].size() );
+
 	} while (mField[result.x][result.y]->getType() != Object::ObjectType::VOID);
 
 	return result;
@@ -92,7 +77,46 @@ void Map::regenerate()
 	mPoisonCounter = poison;
 }
 
+void
+Map::setExictingObject
+(
+	Object* aObjectPtr,
+	Pair<int>	aCoord
+)
+{
+	delete(mField[aCoord.x][aCoord.y]);
+	mField[aCoord.x][aCoord.y] = aObjectPtr;
+}
 
+void
+Map::setNewObject
+(
+	Object::ObjectType	aType,
+	Pair<int>	    	aCoord
+)
+{
+	switch (aType)
+	{
+	case Object::VOID:
+		setExictingObject(new Object(Object::ObjectType::VOID), aCoord);
+		break;
+	case Object::BOT:
+		setExictingObject(new Bot(), aCoord);
+		break;
+	case Object::FOOD:
+		setExictingObject(new Object(Object::ObjectType::FOOD), aCoord);
+		break;
+	case Object::POISON:
+		setExictingObject(new Object(Object::ObjectType::POISON), aCoord);
+		break;
+	case Object::WALL:
+		setExictingObject(new Object(Object::ObjectType::WALL), aCoord);
+		break;
+	default:
+		setExictingObject(new Object(Object::ObjectType::NUN), aCoord);
+		break;
+	}
+}
 
 
 std::vector<std::vector<Object::ObjectType>> Map::getPresentation()
@@ -230,44 +254,53 @@ Map::clearBotsMemory(char aValue)
 	}
 }
 
-
-void
-Map::setExictingObject
-(
-	Object* aObjectPtr,
-	Pair<int>	aCoord
-)
+bool
+Map::need_to_evolve() const
 {
-	delete(mField[aCoord.x][aCoord.y]);
-	mField[aCoord.x][aCoord.y] = aObjectPtr;
+	return int (mBotsCoord.size()) <= BOT_DOWN_LIMIT;
 }
 
+
 void
-Map::setNewObject
-(
-	Object::ObjectType	aType,
-	Pair<int>		aCoord
-)
+Map::evolve()
 {
-	switch (aType)
+	std::vector<Bot*> bots;
+
+	while (!mBotsCoord.empty())
 	{
-	case Object::VOID:
-		setExictingObject(new Object(Object::ObjectType::VOID), aCoord);
-		break;
-	case Object::BOT:
-		setExictingObject(new Bot(), aCoord);
-		break;
-	case Object::FOOD:
-		setExictingObject(new Object(Object::ObjectType::FOOD), aCoord);
-		break;
-	case Object::POISON:
-		setExictingObject(new Object(Object::ObjectType::POISON), aCoord);
-		break;
-	case Object::WALL:
-		setExictingObject(new Object(Object::ObjectType::WALL), aCoord);
-		break;
-	default:
-		setExictingObject(new Object(Object::ObjectType::NUN), aCoord);
-		break;
+		Pair<int> cur = mBotsCoord.front();
+		mBotsCoord.pop();
+
+		bots.push_back(static_cast<Bot*>(mField[cur.x][cur.y]));
+		bots.back()->reset();
+		mField[cur.x][cur.y] = new Object(Object::ObjectType::VOID);
 	}
+
+	regenerate();
+	
+	while (bots.size() < BOT_DOWN_LIMIT)
+	{
+		bots.push_back(static_cast<Bot*>(mOldBots.front()));
+		bots.back()->reset();
+		mOldBots.pop_front();
+	}
+
+	//clearBotsMemory(0);
+
+	for (auto& i : bots)
+	{
+		setExictingObject(i, findVoid());
+	}
+
+	for (char i = 0; i < BOT_MULTIPLY_COUNT; ++i)
+	{
+		for (auto& j : bots)
+		{
+			Bot* new_bot = new Bot(*j);
+			new_bot->evolve((i - 1) < 0 ? 0 : (i - 1));
+			setExictingObject(static_cast<Object*> (new_bot), findVoid());
+		}
+	}
+
+	reloadBotsCoordinates();
 }

@@ -6,7 +6,6 @@
 #include <ctime>
 #include <vector>
 #include <queue>
-#include <set>
 
 
 #include"object.h"
@@ -20,10 +19,10 @@ public:
 	~Map();
 
 	std::queue<Pair<int>> bots;
+	bool need_to_evolve() const;
 	std::vector<std::vector<Object::ObjectType>> getPresentation();
-
+	void evolve();
 	void makeTurn();
-	
 private:
 
 	int mFoodtCounter;

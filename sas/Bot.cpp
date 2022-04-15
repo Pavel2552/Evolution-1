@@ -5,7 +5,7 @@
   переделать куда то смотри
   */
 #define raz 64
-
+ 
 #define COMMAND_COUNT		6
 #define BOT_PROGRAM_SIZE	65
 
@@ -24,6 +24,7 @@ Bot::Bot() :
 {
 	for (auto& i : mProgram) i = generateComand();
 }
+
 
 Bot::Bot(const Bot& aOther) :
 	Object(Object::ObjectType::BOT),
@@ -64,7 +65,7 @@ Bot::poison(float aValue)
 bool
 Bot::aging()
 {
-	//mHealph--;       
+	mHealph--;       
 	return mHealph > 0;
 }
 
@@ -119,13 +120,12 @@ Bot::makeAction(Object::ObjectType aType)
 	return result;
 }
 
-void Bot::evolve(char aValue)
+void Bot::evolve(int  aValue)
 {
-
+		 
 }
 
-void
-Bot::reset()
+void Bot::reset()
 {
 	mHealph = START_HEALPH;
 	mDirection.reset();
@@ -180,5 +180,3 @@ void Bot::shiftProgramPtr(int aValue)
 		mProgramPtr += mProgram.size();
 	}
 }
-
-

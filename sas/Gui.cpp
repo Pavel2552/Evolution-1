@@ -20,10 +20,10 @@ void Gui::draw(std::vector<std::vector<Object::ObjectType>> result)
     int x = 0, y = 0, k = 0;
 
 
-    Crc1.setRadius(30);                                 ///  радиус
+    Crc1.setRadius(20);                                 ///  радиус
     Crc1.setPointCount(6);                              ///  граница
     Crc1.setOutlineColor(sf::Color(70, 70, 70));        ///  цвет гр          /* поле */
-    Crc1.setOutlineThickness(5);                        ///  толщина границы 
+    Crc1.setOutlineThickness(3);                        ///  толщина границы 
     Crc1.setFillColor(sf::Color(120, 120, 120));        ///  цвет внутри
 
         sf::Event event;
@@ -35,7 +35,7 @@ void Gui::draw(std::vector<std::vector<Object::ObjectType>> result)
                 {
                 case (sf::Keyboard::Key::Z):
                 {
-                    std::cout << "ASD";
+                                       std::cout << "ASD";
                 }
                 }
             }
@@ -46,14 +46,14 @@ void Gui::draw(std::vector<std::vector<Object::ObjectType>> result)
 
         if (!font.loadFromFile("font.ttf"))
         {
-            std::cout << "Font load error!\n";
+                                     std::cout << "Font load error!\n";
         }
 
         //font.loadFromFile("111.ttf");                       //передаем нашему шрифту файл шрифта 
-        sf::Text text("asdfjkashjkf", font, 20);             //создаем объект текст. закидываем в объект текст строку, шрифт, размер шрифта(в пикселях);//сам объект текст (не строка)
-        text.setStyle(sf::Text::Bold);                        //жирный и подчеркнутый текст. по умолчанию он "худой":)) и не подчеркнутый
-        text.setFillColor(sf::Color::White);
-        // text.setPosition(10, 10);                          //задаем позицию текста, центр камеры
+        //sf::Text text("asdfjkashjkf", font, 20);             //создаем объект текст. закидываем в объект текст строку, шрифт, размер шрифта(в пикселях);//сам объект текст (не строка)
+        //text.setStyle(sf::Text::Bold);                        //жирный и подчеркнутый текст. по умолчанию он "худой":)) и не подчеркнутый
+        //text.setFillColor(sf::Color::White);
+        //text.setPosition(10, 10);                            //задаем позицию текста, центр камеры
 
 
         mWindow.clear();
@@ -88,11 +88,11 @@ void Gui::draw(std::vector<std::vector<Object::ObjectType>> result)
 
 
                 if (i % 2 == 1) 
-                    x = j * 59 + 30;
+                    x = j * 37 + 19;
                 
 
                 if (i % 2 == 0) 
-                    x = j * 59;
+                    x = j * 37;
                 
                 
 
@@ -107,7 +107,7 @@ void Gui::draw(std::vector<std::vector<Object::ObjectType>> result)
                // text.setScale(sf::Vector2f(1, 1));
                                                      #endif // SHOW_CELLS_COORDINATES
             }
-            y = (i+1) * 53;
+            y = (i+1) * 34;
 
         }
                         //  window.draw(text);//рисую этот текст
