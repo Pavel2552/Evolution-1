@@ -14,13 +14,12 @@ public:
 	
 	void run();
 private:
-	Map mWorld;
-	Gui mView;
+	Map q;
+	Gui y;
 	
 	bool pause = false;
 
 };
-
 
 #endif // GOD_H
 

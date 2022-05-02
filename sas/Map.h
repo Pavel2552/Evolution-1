@@ -28,6 +28,9 @@ private:
 	int mFoodtCounter;
 	int mPoisonCounter;
 
+	std::queue<Pair<int>> mFoodSuitableCells;
+	std::queue<Pair<int>> mPoisonSuitableCells;
+
 	Bot::ActionType answer_for_bot(Object::ObjectType);
 	std::vector<std::vector<Object*>> mField;
 
@@ -36,6 +39,11 @@ private:
 
 	void clearBotsMemory(char aValue = 0);
 	std::deque<Bot*> mOldBots;
+
+	void createNewPlant(Object::ObjectType aType, std::queue<Pair<int>>& aSuitableCells, int aCount);
+	void getSuitableCells(Object::ObjectType aType, std::queue<Pair<int>>& aContainer);
+	bool checkNeighbours(Object::ObjectType aType, Pair<int> aCoord);
+
 
 	Pair<int> findVoid();
 	void setNewObject       (Object::ObjectType aType, Pair<int> aCoord);

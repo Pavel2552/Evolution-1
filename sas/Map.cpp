@@ -4,10 +4,9 @@ const int BOT_DOWN_LIMIT = 8;
 const int BOT_MULTIPLY_COUNT = 7;
 
 const int bot     = 64;
-const int food   = 450;
+const int food   = 550;
 const int poison = 175;
 const int wall   = 150;
-
 
 Map::Map(int x_world_size, int y_world_size) :
 	mField(x_world_size, std::vector<Object*>(y_world_size, NULL))    //29 52
@@ -35,6 +34,8 @@ Map::Map(int x_world_size, int y_world_size) :
 	srand(time(NULL) + 200);
 	regenerate();
 	createObjects(bot, Object::ObjectType::BOT);                   
+	
+	createObjects(1, Object::ObjectType::BOT);
 	reloadBotsCoordinates();
 }
 
@@ -57,7 +58,6 @@ Pair<int> Map::findVoid()
 
 	return result;
 }
-
 
 void Map::regenerate()
 {
@@ -118,21 +118,19 @@ Map::setNewObject
 	}
 }
 
-
 std::vector<std::vector<Object::ObjectType>> Map::getPresentation()
 {
 std::vector<std::vector<Object::ObjectType>>
 	 result(mField.size(), std::vector<Object::ObjectType>
 	       (mField[0].size(), Object::ObjectType::NUN));
-
 	for (int i = 0; i < mField.size(); ++i)
 	{
+
 		for (int j = 0; j < mField[0].size(); ++j)
 		{
 			result[i][j] = mField[i][j]->getType(); 
 		}
 	}
-
 	return result;
 }
 
@@ -220,13 +218,103 @@ void Map::makeTurn()
 			mBotsCoord.push(cur);
 		}
 	}
+
+    int  newPlantCount = 0;
+	newPlantCount = (64*2 - mFoodtCounter) / 50;
+	createNewPlant(Object::ObjectType::FOOD,
+		mFoodSuitableCells, newPlantCount);
+	mFoodtCounter += newPlantCount;
+
+	newPlantCount = (64*3 - mPoisonCounter) / 50;
+	createNewPlant(Object::ObjectType::POISON,
+		mPoisonSuitableCells, newPlantCount);
+	mPoisonCounter += newPlantCount;
+}
+
+void
+Map::createNewPlant
+(
+	Object::ObjectType				aType,
+	std::queue<Pair<int>>& aSuitableCells,
+	int							aCount
+)
+{
+	for (int i = 0; i < aCount; ++i)
+	{
+		if (aSuitableCells.empty())
+		{
+			getSuitableCells(aType, aSuitableCells);
+		}
+		if (aSuitableCells.empty()) break;
+
+		Pair<int> cur = aSuitableCells.front();
+		aSuitableCells.pop();
+		if (mField[cur.x][cur.y]->getType() ==
+			Object::ObjectType::VOID &&
+			checkNeighbours(aType, cur)) setNewObject(aType, cur);
+		else --i;
+	}
+}
+
+void
+Map::getSuitableCells
+(
+	Object::ObjectType				aType,
+	std::queue<Pair<int>>& aContainer
+)
+{
+	std::set<Pair<int>> setOfSuitableCells;
+	Direction dir(0);
+	for (int i = 1; i < mField.size() - 1; ++i)
+	{
+		for (int j = 1; j < mField[0].size() - 1; ++j)
+		{
+			Pair<int> cur(i, j);
+			if (mField[cur.x][cur.y]->getType() ==
+				Object::ObjectType::VOID &&
+				checkNeighbours(aType, cur)) setOfSuitableCells.insert(cur);
+		}
+	}
+
+	std::vector<std::vector<Pair<int>>> randomOrder(10);
+	for (auto& i : setOfSuitableCells)
+	{
+		int num = std::rand() % randomOrder.size();
+		randomOrder[num].push_back(i);
+	}
+	for (auto& i : randomOrder)
+	{
+		for (auto& j : i)
+		{
+			aContainer.push(j);
+		}
+	}
+}
+
+bool
+Map::checkNeighbours
+(
+	Object::ObjectType				aType,
+	Pair<int>					aCoord
+)
+{
+	Direction dir(0);
+	for (char k = 0; k < 6; ++k)
+	{
+		Pair<int> neighbour = dir.shiftPair(aCoord);
+		if (mField[neighbour.x][neighbour.y]->getType() == aType)
+		{
+			return true;
+		}
+		++dir;
+	}
+	return false;
 }
 
 Bot::ActionType Map::answer_for_bot(Object::ObjectType)
 {
 	return Bot::ActionType();
 }
-
 
 void Map::reloadBotsCoordinates()
 {
@@ -260,7 +348,6 @@ Map::need_to_evolve() const
 	return int (mBotsCoord.size()) <= BOT_DOWN_LIMIT;
 }
 
-
 void
 Map::evolve()
 {
@@ -285,7 +372,7 @@ Map::evolve()
 		mOldBots.pop_front();
 	}
 
-	//clearBotsMemory(0);
+	clearBotsMemory(0);
 
 	for (auto& i : bots)
 	{
@@ -301,6 +388,5 @@ Map::evolve()
 			setExictingObject(static_cast<Object*> (new_bot), findVoid());
 		}
 	}
-
 	reloadBotsCoordinates();
 }

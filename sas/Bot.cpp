@@ -5,6 +5,7 @@
   переделать куда то смотри
   */
 #define raz 64
+int as = 0;
  
 #define COMMAND_COUNT		6
 #define BOT_PROGRAM_SIZE	65
@@ -23,6 +24,7 @@ Bot::Bot() :
 	mProgram(BOT_PROGRAM_SIZE)
 {
 	for (auto& i : mProgram) i = generateComand();
+	int a = 0;
 }
 
 
@@ -116,13 +118,27 @@ Bot::makeAction(Object::ObjectType aType)
 	}
 
 	shiftProgramPtr(1);
-
+	
 	return result;
 }
 
 void Bot::evolve(int  aValue)
 {
-		 
+	std::set<int> mutation;//4565464
+	while (mutation.size() < aValue)
+	{
+		mutation.insert(std::rand() % mProgram.size());
+	}
+	for (auto& i : mutation)
+	{
+		char new_value = mProgram[i];
+		do
+		{
+			new_value = generateComand();
+		} while (new_value == mProgram[i]);
+
+		mProgram[i] = new_value;
+	}
 }
 
 void Bot::reset()
@@ -164,7 +180,7 @@ Bot::generateComand() const
 		command = 0;
 		break;
 	}
-	return command;
+	return command;	
 }
 
 
@@ -180,3 +196,4 @@ void Bot::shiftProgramPtr(int aValue)
 		mProgramPtr += mProgram.size();
 	}
 }
+
