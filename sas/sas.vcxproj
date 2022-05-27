@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClCompile Include="Bot.cpp" />
     <ClCompile Include="Direcion.cpp" />
+    <ClCompile Include="Event.cpp" />
     <ClCompile Include="God.cpp" />
     <ClCompile Include="Gui.cpp" />
     <ClCompile Include="main1.cpp" />
@@ -155,10 +156,12 @@
     <ClInclude Include="Bot.h" />
     <ClInclude Include="Direction.h" />
     <ClInclude Include="Domain.h" />
+    <ClInclude Include="Event.h" />
     <ClInclude Include="God.h" />
     <ClInclude Include="Gui.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="sas.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="..\Debug\111.ttf" />

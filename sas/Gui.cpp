@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Gui.h"
 
+
 #define FONT_PATH                   "Banty Bold.ttf"
 #define HEXAGON_DX                  0.f
 #define HEXAGON_DY                  50.f
@@ -12,7 +13,7 @@
 #define HEXAGON_OTLINE_THICKNESS    5.f
 //#define SHOW_CELLS_COORDINATES    false
 
-void Gui::draw(std::vector<std::vector<Object::ObjectType>> result)
+void Gui::draw(std::vector<std::vector<Object::ObjectType>> result ,WorldSize* w)
 {
     sf::CircleShape Crc1;
 
@@ -24,35 +25,45 @@ void Gui::draw(std::vector<std::vector<Object::ObjectType>> result)
     Crc1.setOutlineThickness(3);                        ///  толщина границы 
     Crc1.setFillColor(sf::Color(120, 120, 120));        ///  цвет внутри
 
-        sf::Event event;
-        while (mWindow.pollEvent(event))
+    sf::Event event;
+    while (mWindow.pollEvent(event))
+    {
+        if (event.type == sf::Event::KeyReleased)
         {
-            if (event.type == sf::Event::KeyReleased)
+            switch (event.key.code)
             {
-                switch (event.key.code)
-                {
                 case (sf::Keyboard::Key::Z):
                 {
-                                       std::cout << "ASD";
+                    int yy = 0;
+                    yy++;
                 }
+                case (sf::Keyboard::Key::P):
+                {
+                    bool q = w->make_a_pause;
+                    w->make_a_pause = !q;
+                    std::cout << "ASDASD" << std::endl;
                 }
+
             }
             if (event.type == sf::Event::Closed)
                 mWindow.close();
         }
-        sf::Font font;//шрифт 
+        //sf::Font font;//шрифт 
 
-        if (!font.loadFromFile("111.ttf"))
+        //if (!font.loadFromFile("111.ttf"))
+        //{
+        //    std::cout << "Font load error!\n";
+        //}
+
+    }
+
+
+    sf::View view1;
+    mWindow.clear();
+
+    for (int i = 0; i < result.size(); i++) {
+        for (int j = 0; j < result[0].size(); j++)
         {
-            std::cout << "Font load error!\n";
-        }
-       
-        
-        mWindow.clear();
-
-        for (int i = 0; i < result.size(); i++) {
-            for (int j = 0; j < result[0].size(); j++)
-            {
 
                 if (result[i][j] == Object::ObjectType::VOID)
                     Crc1.setFillColor(sf::Color(120, 120, 120));    //  пусто + !!!!

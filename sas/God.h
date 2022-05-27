@@ -3,21 +3,22 @@
 
 #include "Gui.h"
 #include "Map.h"
+#include "Event.h"
+#include "sas.hpp"
 
 class God
 {
 public:
-	God();
+	God(WorldSize*);
 	~God();
 
 	
 	
-	void run();
+	void run(WorldSize*);
 private:
 	Map q;
 	Gui y;
-	
-	bool pause = false;
+	WorldSize w;
 
 };
 

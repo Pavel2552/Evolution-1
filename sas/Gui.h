@@ -5,7 +5,7 @@
 
 #include <vector>;
 #include "Object.h";
-
+#include "sas.hpp"
 
 class Gui
 {
@@ -14,7 +14,7 @@ public:
 	//Gui(sf::RenderWindow& aWindow);
 	Gui(int x, int y);
 	~Gui();
-	void draw(std::vector<std::vector<Object::ObjectType>> result);
+	void draw(std::vector<std::vector<Object::ObjectType>> result,WorldSize* w);
 private:
 	
 	sf::RenderWindow mWindow;
@@ -22,7 +22,6 @@ private:
 };
 
 
-
-
-
 #endif // !GUI_H
+
+
