@@ -1,0 +1,8 @@
+﻿  Gui.cpp
+U:\1pavel\sas 2\sas\sas\Gui.h(6,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
+U:\1pavel\sas 2\sas\sas\Gui.h(7,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
+U:\1pavel\sas 2\sas\sas\Gui.cpp(69,23): warning C4018: <: несоответствие типов со знаком и без знака
+U:\1pavel\sas 2\sas\sas\Gui.cpp(70,27): warning C4018: <: несоответствие типов со знаком и без знака
+U:\1pavel\sas 2\sas\sas\Gui.cpp(105,37): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+U:\1pavel\sas 2\sas\sas\Gui.cpp(105,34): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  sas.vcxproj -> U:\1pavel\sas 2\sas\Debug\sas.exe
